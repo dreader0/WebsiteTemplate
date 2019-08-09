@@ -18,14 +18,15 @@ var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+/*
 if(process.env.NODE_ENV === 'production') {  app.use(express.static(path.join(__dirname, 'client/build')));  
   app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = 'client/build/index.html'));  
 })}
+*/
 
+//app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-var connection;
 var mysql = require('mysql');
 let username = "macsquiggles";
 let password = "Password@1";
