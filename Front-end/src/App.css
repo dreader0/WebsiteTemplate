@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+}
+
+html {
+  background-color: #66B9Bf; 
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.title {
+  font-size: 30px;
+  color: #E9B000;
+  padding: 30px;
+  margin: auto;
+  text-align: center;
+}
+
+p {
+  line-height: 200%;
+  color: black;
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 60px;
+  background: -webkit-linear-gradient(#EB6E80, #E9B000);
+  -webkit-text-fill-color: white;
+}
+
+
+.tabHeader {
+  background-color: white;
+  border-bottom: 1px solid lightgrey;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  padding: 20px;
+}
+
+
+.postTitle {
+  font-size: 24px;
+  color: #EB6E80;
+  padding: 30px;
+}
+
+button {
+  font-size: 24px;
+  background-color: white;
+  color: #E9B000;
+  padding: 10px;
+  min-height: 30px;
+  min-width: 100px;
+  border: 1px solid #0B3C5D;
+  border-radius: 25px;
+}
+
+button:hover {
+  color: white;
+  background-color: #E9B000;
+}
+
+label {
+  font-size: 22px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  min-height: 30px;
+  min-width: 100px;
+}
+
+#AddPost {
+  float: right;
+  margin: 20px;
+  font-size: 20px;
+}
+
+.PostDiv {
+  border: 1px solid #EB6E80;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 25px;
+}
+
+.tabContent {
+  text-align: center;
+  max-width: 80%;
+  padding: 20px;
+  border: 1px solid lightgray;
+  margin: auto;
+  border-top: none;
+  background-color: white; 
+}
