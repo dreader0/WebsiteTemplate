@@ -11,10 +11,18 @@
 
 const express = require("express");
 const app     = express();
+const path = require('path');
 
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: false }));
+
+if(process.env.NODE_ENV === 'production') {  app.use(express.static(path.join(__dirname, 'client/build')));  
+  app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = 'client/build/index.html'));  
+})}
+
+
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 const portNum = 5000;
@@ -22,11 +30,16 @@ var mysql = require('mysql');
 let username = "macsquiggles";
 let password = "Password@1";
 
+let sql_host = "us-cdbr-iron-east-02.cleardb.net";
+let sql_database = "heroku_bff79995f8f7255";
+let sql_password = "7c439eea";
+let sql_user = "b9dd0342fcf1ea";
+
 var con = mysql.createConnection({
-  host: "localhost",
-  database: "website",
-  user: "root",
-  password: "password"
+  host: sql_host,
+  database: sql_database,
+  user: sql_user,
+  password: sql_password
 });
 
 con.connect(function(err) {
