@@ -25,6 +25,7 @@ if(process.env.NODE_ENV === 'production') {  app.use(express.static(path.join(__
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+var connection;
 var mysql = require('mysql');
 let username = "macsquiggles";
 let password = "Password@1";
@@ -34,18 +35,42 @@ let sql_database = "heroku_bff79995f8f7255";
 let sql_password = "7c439eea";
 let sql_user = "b9dd0342fcf1ea";
 
-var con = mysql.createConnection({
+
+var db_config = {
   host: sql_host,
-  database: sql_database,
-  user: sql_user,
-  password: sql_password
-});
+    user: sql_user,
+    password: sql_password,
+    database: sql_database
+};
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
+var con;
 
+function handleDisconnect() {
+  con = mysql.createConnection(db_config);
+
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+  
+
+  con.connect(function(err) {             
+    if(err) {                                    
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); 
+    }                                    
+  }); 
+  con.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect(); 
+    } else { 
+      throw err;
+    }
+  });
+}
+
+handleDisconnect();
 
 //Create the file table if it doesn't already exist
 app.get('/api/v1/createPostTable', function(req, res) {
