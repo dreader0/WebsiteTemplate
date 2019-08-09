@@ -12,6 +12,7 @@
 const express = require("express");
 const app     = express();
 const path = require('path');
+const port = process.env.PORT || 5000;
 
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
@@ -24,8 +25,6 @@ if(process.env.NODE_ENV === 'production') {  app.use(express.static(path.join(__
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-
-const portNum = 5000;
 var mysql = require('mysql');
 let username = "macsquiggles";
 let password = "Password@1";
@@ -102,5 +101,5 @@ app.post('/api/v1/checkUser', function(req, res) {
 });
 
 
-app.listen(portNum);
-console.log('Running app at localhost: ' + portNum);
+app.listen(port);
+console.log('Running app at localhost: ' + port);
