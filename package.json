@@ -1,0 +1,28 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "My co-op work term website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "heroku-postbuild": "cd Front-end && npm install --only=dev && npm install && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body": "^5.1.0",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "parser": "^0.1.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mquigl01/MyWebsite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mquigl01/MyWebsite/issues"
+  },
+  "homepage": "https://github.com/mquigl01/MyWebsite#readme"
+}
