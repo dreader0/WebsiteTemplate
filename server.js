@@ -46,13 +46,7 @@ var con;
 
 function handleDisconnect() {
   con = mysql.createConnection(db_config);
-
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-  });
   
-
   con.connect(function(err) {             
     if(err) {                                    
       console.log('error when connecting to db:', err);
