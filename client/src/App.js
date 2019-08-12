@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-//import {Modal} from 'react-modal';
+import Modal from 'react-modal';
 import AboutMeForm from "./Components/AboutMeForm";
 import HomeForm from "./Components/HomeForm";
 import WorkTermOneBlogForm from "./Components/WorkTermOneBlogForm";
@@ -95,7 +95,6 @@ class App extends React.Component {
       posts: []
     };
 
-    this.onHide = this.onHide.bind(this);
     this.addPosts = this.addPosts.bind(this);
     this.validateUser = this.validateUser.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
@@ -117,7 +116,6 @@ class App extends React.Component {
   closeModal() {
     this.setState({modalIsOpen: false});
   }
-
 
   updateHistory() {
     history = createBrowserHistory();
@@ -220,10 +218,6 @@ class App extends React.Component {
     }
   }
 
-  onHide = (e) => {
-    this.setState({modalIsOpen: false});
-  }
-
   addPosts = (e) => {
     this.setState({modalIsOpen: true});
   }
@@ -231,7 +225,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {/*
           <Modal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
@@ -243,17 +236,15 @@ class App extends React.Component {
                   <label>Password:</label> <input type="text" onChange={this.handleStateChange} id={"password"} value={this.state.password}/> <br></br>
                   <label>Title:</label> <input type="text" onChange={this.handleStateChange} id={"title"}value={this.state.title}/> <br></br>
                   <label>Date:</label> <input type="date" onChange={this.handleStateChange} id={"date"} value={this.state.date}/> <br></br>
-                  <label>Description:</label> <textarea rows = "5" cols = "60" className="descriptionBox" type="text" onChange={this.handleStateChange} id={"description"} value={this.state.description}/> <br></br>
-                  <button onClick={this.onHide} variant="secondary">Close</button>
+                  <br></br><label>Description:</label><br></br> <textarea rows = "5" cols = "60" className="descriptionBox" type="text" onChange={this.handleStateChange} id={"description"} value={this.state.description}/> <br></br>
                   <button className="cancelButton" onClick={this.closeModal}>Cancel</button> 
                   <button  onClick={this.validateUser} >Save</button>
                   </form>
               </Modal >
-        */}
 
         <div style={{backgroundColor: "white"}}>
             <button onClick={this.addPosts} className="AddPost" id="AddPost">+</button> <br></br>
-            <h1 style={{textAlign: "center", margin: "30px"}}>Mackenzie Quigley</h1> <br></br>
+            <h1 style={{textAlign: "center", margin: "30px", paddingLeft: "150px"}}>Mackenzie Quigley</h1> <br></br>
         </div>
         
         <Router>
