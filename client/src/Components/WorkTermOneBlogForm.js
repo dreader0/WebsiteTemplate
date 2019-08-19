@@ -5,10 +5,15 @@ class WorkTermOneBlogForm extends React.Component {
     super(props);
 
     this.state = {
-      posts: props.posts,
+      posts: [],
     };
 
     this.seePosts = this.seePosts.bind(this);
+  }
+
+
+  componentDidMount() {
+    this.seePosts();
   }
 
   seePosts = async (e) => {

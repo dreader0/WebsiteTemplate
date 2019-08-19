@@ -109,7 +109,6 @@ class App extends React.Component {
     this.selectAboutMe = this.selectAboutMe.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.seePosts = this.seePosts.bind(this);
   }
 
   // Closes the modal that alerts the client they are making an insurance-less client
@@ -121,14 +120,7 @@ class App extends React.Component {
     history = createBrowserHistory();
   }
 
-  seePosts = async (e) => {
-    let response = await getPostData();
-    this.setState({ posts: response });
-  }
-
-
   async selectHome() {
-    this.setState({ hoverAbout: false });
     this.setState({ hoverAboutMe: false });
     this.setState({ hoverWorkTermOne: false });
     this.setState({ hoverHome: true });
@@ -147,7 +139,6 @@ class App extends React.Component {
 
   async selectWorkTermOne(){
     await this.seePosts();
-    this.setState({ hoverAbout: false });
     this.setState({ hoverAboutMe: false });
     this.setState({ hoverWorkTermOne: true });
     this.setState({ hoverHome: false });
@@ -158,14 +149,13 @@ class App extends React.Component {
     this.setState({ hoverWorkTermOne: true });
   }
 
-  hoverWorkTermOneOff(){ 
+  hoverWorkTermOneOff() { 
     if(history.location.pathname !== "/WorkTermOne") {
       this.setState({ hoverWorkTermOne: false });    
     }
   }
 
   async selectAboutMe(){
-    this.setState({ hoverAbout: false });
     this.setState({ hoverAboutMe: true });
     this.setState({ hoverWorkTermOne: false });
     this.setState({ hoverHome: false });
@@ -309,7 +299,7 @@ class App extends React.Component {
 
             <Switch onChange={this.updateHistory}>
                 <Route exact path="/" onChange={this.updateHistory}><HomeForm className="tabContent"/></Route>
-                <Route exact path="/WorkTermOne"> <WorkTermOneBlogForm posts={this.state.posts} className="tabContent"/> </Route>
+                <Route exact path="/WorkTermOne" onChange={this.updateHistory}> <WorkTermOneBlogForm className="tabContent"/> </Route>
                 <Route exact path="/AboutMe" onChange={this.updateHistory}><AboutMeForm className="tabContent"/></Route>
             </Switch>
         </div>
@@ -368,21 +358,5 @@ async function addPost(title, date, description) {
     return data;
 }
 
-async function getPostData() {
-  let data = {};
-
-  await (async () => {
-    const rawResponse = await fetch('/api/v1/getPosts', {
-      method: 'get',
-      headers: {
-        'Accept': 'WorkTermOneBlogFormlication/json',
-        'Content-Type': 'WorkTermOneBlogFormlication/json'
-      }
-    });
-    data = await rawResponse.json();
-  })();
-
-    return data;
-}
 
 export default App;
