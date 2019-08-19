@@ -3,7 +3,7 @@
 }
 
 html {
-  background-color: #66B9Bf; 
+  background-color: #a5c9c9; 
   text-align: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -53,7 +53,7 @@ button {
   padding: 2px;
   min-height: 30px;
   min-width: 100px;
-  border: 1px solid #0B3C5D;
+  border: 1px solid #7b8c88;
   border-radius: 25px;
   margin: 10px;
   padding-left: 5px;
@@ -77,7 +77,7 @@ label {
 input {
   font-size: 18px;
   background-color: white;
-  border: 1px solid  #66B9Bf;
+  border: 1px solid  #a5c9c9;
   color: black;
   margin: 10px;
   min-height: 30px;
@@ -88,7 +88,7 @@ input {
 .descriptionBox {
   font-size: 18px;
   background-color: white;
-  border: 1px solid  #66B9Bf;
+  border: 1px solid  #a5c9c9;
   color: black;
   margin: 10px;
 }

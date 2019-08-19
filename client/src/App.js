@@ -59,7 +59,7 @@ const tabStyle = {
 
 const hoverTabStyle = {
   color: 'white', 
-  backgroundColor: '#008acc',
+  backgroundColor: '#a5c9c9',
   textAlign: 'center',
   paddingLeft: "80px",
   paddingRight: "80px",
