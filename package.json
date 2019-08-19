@@ -19,7 +19,9 @@
     "concurrently": "^4.1.1",
     "express": "^4.17.1",
     "mysql": "^2.17.1",
-    "parser": "^0.1.4"
+    "parser": "^0.1.4",
+    "react-burger-menu": "^2.6.11",
+    "react-responsive": "^7.0.0"
   },
   "devDependencies": {},
   "repository": {

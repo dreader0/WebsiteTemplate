@@ -6,6 +6,8 @@ import HomeForm from "./Components/HomeForm";
 import WorkTermOneBlogForm from "./Components/WorkTermOneBlogForm";
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import { createBrowserHistory } from 'history';
+//import { slide as Menu } from 'react-burger-menu'
+//var MediaQuery = require('react-responsive');
 
 let history = null;
 
@@ -59,7 +61,7 @@ const tabStyle = {
 
 const hoverTabStyle = {
   color: 'white', 
-  backgroundColor: '#a5c9c9',
+  backgroundColor: '#7eb2c4',
   textAlign: 'center',
   paddingLeft: "80px",
   paddingRight: "80px",
@@ -237,64 +239,75 @@ class App extends React.Component {
         </div>
         
         <Router>
-        <div>
-              <nav className="tabHeader">
-                {history.location.pathname === "/" && 
-                  <Link 
-                  style={hoverTabStyle} 
-                  to="/">
-                  Home
-                  </Link>
-                }
 
-                {history.location.pathname !== "/" &&
-                  <Link 
-                  style={this.state.hoverHome ? hoverTabStyle : tabStyle} 
-                  onMouseEnter={this.hoverHomeOn} 
-                  onMouseLeave={this.hoverHomeOff}  
-                  onClick={this.selectHome} 
-                  to="/">
-                  Home
-                  </Link>
-                }
-                {history.location.pathname === "/WorkTermOne" && 
-                    <Link  
-                    style={hoverTabStyle} 
-                    to="/WorkTermOne">
-                      Work Term One
-                    </Link>
-                }
-
-                {history.location.pathname !== "/WorkTermOne" && 
+        
+          <div>
+          
+                <nav className="tabHeader">
+                  {history.location.pathname === "/" && 
                     <Link 
-                    onClick={this.selectWorkTermOne} 
-                    style={this.state.hoverWorkTermOne ? hoverTabStyle : tabStyle} 
-                    onMouseEnter={this.hoverWorkTermOneOn} 
-                    onMouseLeave={this.hoverWorkTermOneOff} 
-                    to="/WorkTermOne">
-                      Work Term One
-                      </Link>
-                }
-                
-              {history.location.pathname === "/AboutMe" && 
-              <Link
-              style={ hoverTabStyle} 
-              to="/AboutMe">
-                About Me
-                </Link>
-            }
+                    style={hoverTabStyle} 
+                    to="/">
+                    Home
+                    </Link>
+                  }
 
-              {history.location.pathname !== "/AboutMe" && 
-              <Link
-              onClick={this.selectAboutMe} 
-              style={this.state.hoverAboutMe ? hoverTabStyle : tabStyle} 
-              onMouseEnter={this.hoverAboutMeOn} 
-              onMouseLeave={this.hoverAboutMeoff} 
-              to="/AboutMe">
-                About Me
-                </Link>
-            } 
-            </nav>
+                  {history.location.pathname !== "/" &&
+                    <Link 
+                    style={this.state.hoverHome ? hoverTabStyle : tabStyle} 
+                    onMouseEnter={this.hoverHomeOn} 
+                    onMouseLeave={this.hoverHomeOff}  
+                    onClick={this.selectHome} 
+                    to="/">
+                    Home
+                    </Link>
+                  }
+                  {history.location.pathname === "/WorkTermOne" && 
+                      <Link  
+                      style={hoverTabStyle} 
+                      to="/WorkTermOne">
+                        Work Term One
+                      </Link>
+                  }
+
+                  {history.location.pathname !== "/WorkTermOne" && 
+                      <Link 
+                      onClick={this.selectWorkTermOne} 
+                      style={this.state.hoverWorkTermOne ? hoverTabStyle : tabStyle} 
+                      onMouseEnter={this.hoverWorkTermOneOn} 
+                      onMouseLeave={this.hoverWorkTermOneOff} 
+                      to="/WorkTermOne">
+                        Work Term One
+                        </Link>
+                  }
+                  
+                {history.location.pathname === "/AboutMe" && 
+                <Link
+                style={ hoverTabStyle} 
+                to="/AboutMe">
+                  About Me
+                  </Link>
+              }
+
+                {history.location.pathname !== "/AboutMe" && 
+                <Link
+                onClick={this.selectAboutMe} 
+                style={this.state.hoverAboutMe ? hoverTabStyle : tabStyle} 
+                onMouseEnter={this.hoverAboutMeOn} 
+                onMouseLeave={this.hoverAboutMeoff} 
+                to="/AboutMe">
+                  About Me
+                  </Link>
+              } 
+              </nav>
+        
+        {/*<MediaQuery maxDeviceWidth={1224}>
+            <Menu>
+            <a id="home" className="menu-item" href="/">Home</a>
+            <a id="about" className="menu-item" href="/WorkTermReportOne">About</a>
+            <a id="contact" className="menu-item" href="/AboutMe">Contact</a>
+          </Menu>
+            </MediaQuery> */}
 
             <Switch onChange={this.updateHistory}>
                 <Route exact path="/" onChange={this.updateHistory}><HomeForm className="tabContent"/></Route>

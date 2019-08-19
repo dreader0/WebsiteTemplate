@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom'
 const Button = withRouter(({ history }) => (
   <button
     type='button'
-    onClick={() => { history.push('/WorkTermOne') }}
+    onClick={() => { history.push('/WorkTermOne'); window.location.reload(); }}
     style={{padding: "12px", fontWeight: "bolder"}}
   >
-    Go To My Work Term Report One
+    View My Work Term One Report
   </button>
 ));
 
@@ -21,7 +21,7 @@ class HomeForm extends React.Component {
             at the Co-operators (Guelph location). I spent my term working with the Build Automation and 
             Release (BAR) team where we were responsible for the automation of testing, release activities,
              and building/maintaining environments. My hope is by looking through this website, you will 
-             learn more about my experiences and skills gained throughout my Software Engineering CO-OP 
+             learn more about the experiences and skills I gained throughout my Software Engineering CO-OP 
              program at the University of Guelph.</p> <br></br>
              <Button />
              <br></br>
