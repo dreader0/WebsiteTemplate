@@ -1,4 +1,15 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
+
+const Button = withRouter(({ history }) => (
+  <button
+    type='button'
+    onClick={() => { history.push('/WorkTermOne') }}
+    style={{padding: "12px", fontWeight: "bolder"}}
+  >
+    Go To My Work Term Report One
+  </button>
+));
 
 class HomeForm extends React.Component {
   render() {
@@ -12,8 +23,7 @@ class HomeForm extends React.Component {
              and building/maintaining environments. My hope is by looking through this website, you will 
              learn more about my experiences and skills gained throughout my Software Engineering CO-OP 
              program at the University of Guelph.</p> <br></br>
-             <label>To view my work term one report</label> <br></br>
-             <button>Click Here</button>
+             <Button />
              <br></br>
         </div>
     );

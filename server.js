@@ -18,11 +18,6 @@ var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-if(process.env.NODE_ENV === 'production') {  app.use(express.static(path.join(__dirname, 'client/build')));  
-  app.get('/', (req, res) => {    res.sendfile(path.join(__dirname = 'client/build/index.html'));  
-})}
-
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 var mysql = require('mysql');
@@ -81,7 +76,7 @@ app.get('/api/v1/createPostTable', function(req, res) {
 
 //Returns the number of events in the database
 app.get('/api/v1/getPosts', function(req, res) {
-  var sql = "SELECT * FROM POSTS ORDER BY posted_date DESC;";
+  var sql = "SELECT * FROM POSTS ORDER BY posted_date ASC;";
   con.query(sql, function (err, result) {
     if(err) {
       res.send("{\"error\":\"" + err + "\"}");
@@ -118,6 +113,11 @@ app.post('/api/v1/checkUser', function(req, res) {
     res.send("{\"error\":\"Error\"}");
   }
 });
+
+
+if(process.env.NODE_ENV === 'production') {  app.use(express.static(path.join(__dirname, 'client/build')));  
+  app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = 'client/build/index.html'));  
+})}
 
 
 app.listen(port);

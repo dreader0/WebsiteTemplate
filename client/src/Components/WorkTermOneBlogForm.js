@@ -9,15 +9,20 @@ class WorkTermOneBlogForm extends React.Component {
     };
 
     this.seePosts = this.seePosts.bind(this);
+    //this.changeSort = this.changeSort.bind(this);
   }
 
+  /*changeSort = async (e) => {
+    console.log(e.target.value);
+    await this.setState({sortBy: e.target.value});
+  }*/
 
   componentDidMount() {
     this.seePosts();
   }
 
   seePosts = async (e) => {
-    let response = await getPostData();
+    let response = await getPostData(this.state.sortBy);
     console.log(response);
 
     this.setState({ posts: response });
@@ -30,6 +35,17 @@ class WorkTermOneBlogForm extends React.Component {
         <h3 className="title">
           Work Term One
         </h3>
+
+        {/*}
+        <select onChange={this.changeSort}>
+          <option value="ASC">
+            Oldest to Newest
+          </option>
+          <option value="DESC">
+            Newest to Oldest
+          </option>
+        </select>
+      */}
             {
               this.state.posts.map((item, i) => 
                 <div className="PostDiv" key={i}>
@@ -45,7 +61,7 @@ class WorkTermOneBlogForm extends React.Component {
 }
 
 
-async function getPostData() {
+async function getPostData(order) {
   let data = {};
 
   await (async () => {

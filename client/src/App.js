@@ -138,7 +138,6 @@ class App extends React.Component {
   }
 
   async selectWorkTermOne(){
-    await this.seePosts();
     this.setState({ hoverAboutMe: false });
     this.setState({ hoverWorkTermOne: true });
     this.setState({ hoverHome: false });
