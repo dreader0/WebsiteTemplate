@@ -9,13 +9,14 @@ class WorkTermOneBlogForm extends React.Component {
     };
 
     this.seePosts = this.seePosts.bind(this);
-    //this.changeSort = this.changeSort.bind(this);
+    this.changeSort = this.changeSort.bind(this);
   }
 
-  /*changeSort = async (e) => {
+  changeSort = async (e) => {
     console.log(e.target.value);
     await this.setState({sortBy: e.target.value});
-  }*/
+    this.seePosts();
+  }
 
   componentDidMount() {
     this.seePosts();
@@ -36,7 +37,7 @@ class WorkTermOneBlogForm extends React.Component {
           Work Term One
         </h3>
 
-        {/*}
+        {
         <select onChange={this.changeSort}>
           <option value="ASC">
             Oldest to Newest
@@ -45,7 +46,7 @@ class WorkTermOneBlogForm extends React.Component {
             Newest to Oldest
           </option>
         </select>
-      */}
+      }
             {
               this.state.posts.map((item, i) => 
                 <div className="PostDiv" key={i}>
