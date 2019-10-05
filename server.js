@@ -75,8 +75,8 @@ app.get('/api/v1/createPostTable', function(req, res) {
 
 
 //Returns the number of events in the database
-app.get('/api/v1/getPosts', function(req, res) {
-  var sql = "SELECT * FROM POSTS ORDER BY posted_date ASC;";
+app.post('/api/v1/getPosts', function(req, res) {
+  var sql = "SELECT * FROM POSTS ORDER BY posted_date " + req.body.order + ";";
   con.query(sql, function (err, result) {
     if(err) {
       res.send("{\"error\":\"" + err + "\"}");

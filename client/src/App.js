@@ -6,8 +6,6 @@ import HomeForm from "./Components/HomeForm";
 import WorkTermOneBlogForm from "./Components/WorkTermOneBlogForm";
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import { createBrowserHistory } from 'history';
-//import { slide as Menu } from 'react-burger-menu'
-//var MediaQuery = require('react-responsive');
 
 let history = null;
 
@@ -94,7 +92,6 @@ class App extends React.Component {
       hoverWorkTermOne: false,
       hoverAboutMe: false,
       modalIsOpen: false,
-      posts: []
     };
 
     this.addPosts = this.addPosts.bind(this);

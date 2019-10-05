@@ -6,6 +6,7 @@ class WorkTermOneBlogForm extends React.Component {
 
     this.state = {
       posts: [],
+      sortBy: "ASC"
     };
 
     this.seePosts = this.seePosts.bind(this);
@@ -37,7 +38,6 @@ class WorkTermOneBlogForm extends React.Component {
           Work Term One
         </h3>
 
-        {
         <select onChange={this.changeSort}>
           <option value="ASC">
             Oldest to Newest
@@ -46,7 +46,7 @@ class WorkTermOneBlogForm extends React.Component {
             Newest to Oldest
           </option>
         </select>
-      }
+
             {
               this.state.posts.map((item, i) => 
                 <div className="PostDiv" key={i}>
@@ -64,10 +64,13 @@ class WorkTermOneBlogForm extends React.Component {
 
 async function getPostData(order) {
   let data = {};
+  let mySettings = [];
+  mySettings.order = order;
 
   await (async () => {
     const rawResponse = await fetch('/api/v1/getPosts', {
-      method: 'get',
+      method: 'post',
+      body: mySettings,
       headers: {
         'Accept': 'WorkTermOneBlogFormlication/json',
         'Content-Type': 'WorkTermOneBlogFormlication/json'
