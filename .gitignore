@@ -1,0 +1,3 @@
+#Ignore the npm modules folders
+node_modules
+client/node_modules

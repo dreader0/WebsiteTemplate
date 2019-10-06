@@ -6,6 +6,7 @@ import HomeForm from "./Components/HomeForm";
 import WorkTermOneBlogForm from "./Components/WorkTermOneBlogForm";
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import { createBrowserHistory } from 'history';
+import MediaQuery  from 'react-responsive';
 
 let history = null;
 
@@ -34,6 +35,42 @@ let myModalStyle = {
     top: '50%',
     transform: 'translate(-50%, -50%)'
   }
+};
+
+const mobileTabStyle = {
+  backgroundColor: "white",
+  color: 'black', 
+  textAlign: 'center',
+  height: '80px !important',
+  width: '300px !important',
+  fontSize: '20px',
+  fontWeight: "bold",
+  paddingLeft: "5px",
+  paddingRight: "5px",
+  paddingTop: "5px",
+  paddingBottom: "5px",
+  borderRadius: "4px",
+  textDecoration: 'none',
+  border: "1px solid lightgrey",
+  margin: "2px"
+};
+
+const mobileHoverTabStyle = {
+  color: 'white', 
+  backgroundColor: '#7eb2c4',
+  textAlign: 'center',
+  height: '80px !important',
+  width: '300px !important',
+  fontSize: '20px',
+  fontWeight: "bold",
+  paddingLeft: "5px",
+  paddingRight: "5px",
+  paddingTop: "5px",
+  paddingBottom: "5px",
+  borderRadius: "4px",
+  textDecoration: 'none',
+  border: "1px solid lightgrey",
+  margin: "2px"
 };
 
 
@@ -213,6 +250,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <MediaQuery query='(min-width: 1224px)'>
           <Modal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
@@ -234,12 +272,17 @@ class App extends React.Component {
             <button onClick={this.addPosts} className="AddPost" id="AddPost">+</button> <br></br>
             <h1 style={{textAlign: "center", margin: "30px", paddingLeft: "150px"}}>Mackenzie Quigley</h1> <br></br>
         </div>
+        </MediaQuery>
+
+        <MediaQuery query='(max-width: 1224px)'>
+          <div style={{backgroundColor: "white", padding: "2px", paddingBottom: "0px", marginTop: "2px"}}>
+              <h1 style={{textAlign: "center", fontSize: "30px", padding: "3px"}}>Mackenzie Quigley</h1> <br></br>
+          </div>
+        </MediaQuery>
         
         <Router>
-
-        
           <div>
-          
+              <MediaQuery query='(min-width: 1224px)'>
                 <nav className="tabHeader">
                   {history.location.pathname === "/" && 
                     <Link 
@@ -263,7 +306,7 @@ class App extends React.Component {
                       <Link  
                       style={hoverTabStyle} 
                       to="/WorkTermOne">
-                        Work Term One
+                        The Co-operators
                       </Link>
                   }
 
@@ -274,7 +317,7 @@ class App extends React.Component {
                       onMouseEnter={this.hoverWorkTermOneOn} 
                       onMouseLeave={this.hoverWorkTermOneOff} 
                       to="/WorkTermOne">
-                        Work Term One
+                        The Co-operators
                         </Link>
                   }
                   
@@ -297,14 +340,67 @@ class App extends React.Component {
                   </Link>
               } 
               </nav>
-        
-        {/*<MediaQuery maxDeviceWidth={1224}>
-            <Menu>
-            <a id="home" className="menu-item" href="/">Home</a>
-            <a id="about" className="menu-item" href="/WorkTermReportOne">About</a>
-            <a id="contact" className="menu-item" href="/AboutMe">Contact</a>
-          </Menu>
-            </MediaQuery> */}
+          </MediaQuery>
+              
+          <MediaQuery query='(max-width: 1224px)'>
+          <nav className="tabHeader" style={{paddingTop: "0px"}}>
+                  {history.location.pathname === "/" && 
+                    <Link 
+                    style={mobileHoverTabStyle} 
+                    to="/">
+                    Home
+                    </Link>
+                  }
+
+                  {history.location.pathname !== "/" &&
+                    <Link 
+                    style={this.state.hoverHome ? mobileHoverTabStyle : mobileTabStyle} 
+                    onMouseEnter={this.hoverHomeOn} 
+                    onMouseLeave={this.hoverHomeOff}  
+                    onClick={this.selectHome} 
+                    to="/">
+                    Home
+                    </Link>
+                  }
+                  {history.location.pathname === "/WorkTermOne" && 
+                      <Link  
+                      style={mobileHoverTabStyle} 
+                      to="/WorkTermOne">
+                        The Co-operators
+                      </Link>
+                  }
+
+                  {history.location.pathname !== "/WorkTermOne" && 
+                      <Link 
+                      onClick={this.selectWorkTermOne} 
+                      style={this.state.hoverWorkTermOne ? mobileHoverTabStyle : mobileTabStyle} 
+                      onMouseEnter={this.hoverWorkTermOneOn} 
+                      onMouseLeave={this.hoverWorkTermOneOff} 
+                      to="/WorkTermOne">
+                        The Co-operators
+                        </Link>
+                  }
+                  
+                {history.location.pathname === "/AboutMe" && 
+                <Link
+                style={mobileHoverTabStyle} 
+                to="/AboutMe">
+                  About Me
+                  </Link>
+              }
+
+                {history.location.pathname !== "/AboutMe" && 
+                <Link
+                onClick={this.selectAboutMe} 
+                style={this.state.hoverAboutMe ? mobileHoverTabStyle : mobileTabStyle} 
+                onMouseEnter={this.hoverAboutMeOn} 
+                onMouseLeave={this.hoverAboutMeoff} 
+                to="/AboutMe">
+                  About Me
+                  </Link>
+              } 
+              </nav>
+          </MediaQuery>
 
             <Switch onChange={this.updateHistory}>
                 <Route exact path="/" onChange={this.updateHistory}><HomeForm className="tabContent"/></Route>

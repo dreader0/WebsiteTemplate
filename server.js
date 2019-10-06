@@ -37,8 +37,17 @@ var db_config = {
     database: sql_database
 };
 
-var con;
 
+const pool = mysql.createPool({
+  host: sql_host,
+  user: sql_user,
+  database: sql_database,
+  password: sql_password
+});
+
+//var con;
+
+/*
 function handleDisconnect() {
   con = mysql.createConnection(db_config);
   
@@ -59,10 +68,11 @@ function handleDisconnect() {
 }
 
 handleDisconnect();
+*/
 
 //Create the file table if it doesn't already exist
 app.get('/api/v1/createPostTable', function(req, res) {
-  con.query("CREATE TABLE IF NOT EXISTS POSTS (post_id INT AUTO_INCREMENT PRIMARY KEY, post_title VARCHAR(60) NOT NULL, post_description TEXT NOT NULL, posted_date VARCHAR(60) NOT NULL)", function (err, result) {
+  pool.query("CREATE TABLE IF NOT EXISTS POSTS (post_id INT AUTO_INCREMENT PRIMARY KEY, post_title VARCHAR(60) NOT NULL, post_description TEXT NOT NULL, posted_date VARCHAR(60) NOT NULL)", function (err, result) {
     if(err) {
       res.send("{\"error\":\"" + err + "\"}");
     }
@@ -76,8 +86,14 @@ app.get('/api/v1/createPostTable', function(req, res) {
 
 //Returns the number of events in the database
 app.post('/api/v1/getPosts', function(req, res) {
-  var sql = "SELECT * FROM POSTS ORDER BY posted_date " + req.body.order + ";";
-  con.query(sql, function (err, result) {
+  let order = "ASC";
+
+  if(req.body.order !== undefined) {
+    order = req.body.order;
+  }
+
+  var sql = "SELECT * FROM POSTS ORDER BY posted_date " + order + ";";
+  pool.query(sql, function (err, result) {
     if(err) {
       res.send("{\"error\":\"" + err + "\"}");
     }
@@ -93,7 +109,7 @@ app.post('/api/v1/addPost', function(req, res) {
   var sql = "INSERT INTO POSTS (post_title, post_description, posted_date) VALUES (\"" + req.body.title + 
   "\", \"" + req.body.description + "\", \"" +  req.body.date + "\");";
 
-  con.query(sql, function (err, result) {
+  pool.query(sql, function (err, result) {
     if(err) {
       res.send("{\"error\":\"" + err + "\"}");
     }

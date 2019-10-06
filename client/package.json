@@ -11,6 +11,7 @@
     "react-columns": "^1.2.1",
     "react-dom": "^16.9.0",
     "react-modal": "^3.9.1",
+    "react-responsive": "^8.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
