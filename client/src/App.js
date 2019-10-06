@@ -7,6 +7,8 @@ import WorkTermOneBlogForm from "./Components/WorkTermOneBlogForm";
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import { createBrowserHistory } from 'history';
 import MediaQuery  from 'react-responsive';
+import CheeseburgerMenu from 'cheeseburger-menu';
+import HamburgerMenu from 'react-hamburger-menu';
 
 let history = null;
 
@@ -37,41 +39,16 @@ let myModalStyle = {
   }
 };
 
-const mobileTabStyle = {
+const mobileOptions = {
   backgroundColor: "white",
   color: 'black', 
   textAlign: 'center',
-  height: '80px !important',
-  width: '300px !important',
-  fontSize: '20px',
-  fontWeight: "bold",
-  paddingLeft: "5px",
-  paddingRight: "5px",
-  paddingTop: "5px",
-  paddingBottom: "5px",
-  borderRadius: "4px",
+  fontSize: '24px',
+  paddingTop: "10px",
+  paddingBottom: "10px",
   textDecoration: 'none',
-  border: "1px solid lightgrey",
-  margin: "2px"
-};
-
-const mobileHoverTabStyle = {
-  color: 'white', 
-  backgroundColor: '#7eb2c4',
-  textAlign: 'center',
-  height: '80px !important',
-  width: '300px !important',
-  fontSize: '20px',
-  fontWeight: "bold",
-  paddingLeft: "5px",
-  paddingRight: "5px",
-  paddingTop: "5px",
-  paddingBottom: "5px",
-  borderRadius: "4px",
-  textDecoration: 'none',
-  border: "1px solid lightgrey",
-  margin: "2px"
-};
+  border: "1px solid grey",
+}
 
 
 const tabStyle = {
@@ -129,6 +106,7 @@ class App extends React.Component {
       hoverWorkTermOne: false,
       hoverAboutMe: false,
       modalIsOpen: false,
+      menuOpen: false,
     };
 
     this.addPosts = this.addPosts.bind(this);
@@ -145,6 +123,14 @@ class App extends React.Component {
     this.selectAboutMe = this.selectAboutMe.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  openMenu() {
+    this.setState({ menuOpen: true })
+  }
+
+  closeMenu() {
+    this.setState({ menuOpen: false })
   }
 
   // Closes the modal that alerts the client they are making an insurance-less client
@@ -274,12 +260,6 @@ class App extends React.Component {
         </div>
         </MediaQuery>
 
-        <MediaQuery query='(max-width: 1224px)'>
-          <div style={{backgroundColor: "white", padding: "2px", paddingBottom: "0px", marginTop: "2px"}}>
-              <h1 style={{textAlign: "center", fontSize: "30px", padding: "3px"}}>Mackenzie Quigley</h1> <br></br>
-          </div>
-        </MediaQuery>
-        
         <Router>
           <div>
               <MediaQuery query='(min-width: 1224px)'>
@@ -341,66 +321,40 @@ class App extends React.Component {
               } 
               </nav>
           </MediaQuery>
-              
+
           <MediaQuery query='(max-width: 1224px)'>
-          <nav className="tabHeader" style={{paddingTop: "0px"}}>
-                  {history.location.pathname === "/" && 
-                    <Link 
-                    style={mobileHoverTabStyle} 
-                    to="/">
-                    Home
-                    </Link>
-                  }
-
-                  {history.location.pathname !== "/" &&
-                    <Link 
-                    style={this.state.hoverHome ? mobileHoverTabStyle : mobileTabStyle} 
-                    onMouseEnter={this.hoverHomeOn} 
-                    onMouseLeave={this.hoverHomeOff}  
-                    onClick={this.selectHome} 
-                    to="/">
-                    Home
-                    </Link>
-                  }
-                  {history.location.pathname === "/WorkTermOne" && 
-                      <Link  
-                      style={mobileHoverTabStyle} 
-                      to="/WorkTermOne">
-                        The Co-operators
-                      </Link>
-                  }
-
-                  {history.location.pathname !== "/WorkTermOne" && 
-                      <Link 
-                      onClick={this.selectWorkTermOne} 
-                      style={this.state.hoverWorkTermOne ? mobileHoverTabStyle : mobileTabStyle} 
-                      onMouseEnter={this.hoverWorkTermOneOn} 
-                      onMouseLeave={this.hoverWorkTermOneOff} 
-                      to="/WorkTermOne">
-                        The Co-operators
+            <div style={{margin: "10px"}}>
+                <CheeseburgerMenu
+                  isOpen={this.state.menuOpen}
+                  closeCallback={this.closeMenu.bind(this)}>
+                        <Link style={{textDecoration: "none"}} to="/">
+                          <p style={{mobileOptions}}>Home</p>
                         </Link>
-                  }
-                  
-                {history.location.pathname === "/AboutMe" && 
-                <Link
-                style={mobileHoverTabStyle} 
-                to="/AboutMe">
-                  About Me
-                  </Link>
-              }
+                        <Link style={{textDecoration: "none"}} to="/WorkTermOne">
+                          <p style={{mobileOptions}}>The Co-operators</p>
+                        </Link>
+                        <Link style={{textDecoration: "none"}} to="/AboutMe">
+                          <p style={{mobileOptions}}>About Me</p>
+                        </Link>
+                </CheeseburgerMenu>
+          
+                <HamburgerMenu
+                  isOpen={this.state.menuOpen}
+                  menuClicked={this.openMenu.bind(this)}
+                  width={32}
+                  height={24}
+                  strokeWidth={3}
+                  rotate={0}
+                  color='black'
+                  borderRadius={0}
+                  animationDuration={0.5}
+                />
+            </div>
 
-                {history.location.pathname !== "/AboutMe" && 
-                <Link
-                onClick={this.selectAboutMe} 
-                style={this.state.hoverAboutMe ? mobileHoverTabStyle : mobileTabStyle} 
-                onMouseEnter={this.hoverAboutMeOn} 
-                onMouseLeave={this.hoverAboutMeoff} 
-                to="/AboutMe">
-                  About Me
-                  </Link>
-              } 
-              </nav>
-          </MediaQuery>
+          <div style={{backgroundColor: "white", padding: "2px", paddingBottom: "0px", marginTop: "2px"}}>
+              <h1 style={{textAlign: "center", fontSize: "30px", padding: "3px"}}>Mackenzie Quigley</h1> <br></br>
+          </div>
+        </MediaQuery>
 
             <Switch onChange={this.updateHistory}>
                 <Route exact path="/" onChange={this.updateHistory}><HomeForm className="tabContent"/></Route>

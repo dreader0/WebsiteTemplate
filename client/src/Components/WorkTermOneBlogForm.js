@@ -1,4 +1,5 @@
 import React from 'react';
+import MediaQuery  from 'react-responsive';
 
 class WorkTermOneBlogForm extends React.Component {
   constructor(props) {
@@ -34,32 +35,58 @@ class WorkTermOneBlogForm extends React.Component {
   render() {
     return (
       <div className="tabContent">
-        <h3 className="title">
-          Jr. Systems Developer
-        </h3>
-        <p className="placement">
-          The Co-operators
-        </p>
+        <MediaQuery query='(max-width: 1224px)'>
+          <h3 className="mobileTitle">
+            Jr. Systems Developer
+          </h3>
+          <p className="mobilePlacement">
+            The Co-operators
+          </p>
+          <select className="mobileSelection" onChange={this.changeSort}>
+            <option value="ASC">
+              Oldest to Newest
+            </option>
+            <option value="DESC">
+              Newest to Oldest
+            </option>
+          </select>
 
-        <select onChange={this.changeSort}>
-          <option value="ASC">
-            Oldest to Newest
-          </option>
-          <option value="DESC">
-            Newest to Oldest
-          </option>
-        </select>
-
-            { this.state.posts.length > 0 &&
+          { this.state.posts.length > 0 &&
                 this.state.posts.map((item, i) => 
-                  <div className="PostDiv" key={i}>
-                    <h3 className="postTitle" >{item.post_title}</h3>
-                    <p>Added: {item.posted_date}</p>
-                    <p className="PostDiv">{item.post_description}</p>
+                  <div className="mobilePostDiv" key={i}>
+                    <h3 className="mobilePostTitle" >{item.post_title}</h3>
+                    <p className="mobileAdded">Added: {item.posted_date}</p>
+                    <p className="mobilePostDiv">{item.post_description}</p>
                   </div>
                 )
             }
-            
+        </MediaQuery>
+
+        <MediaQuery query='(min-width: 1224px)'>
+          <h3 className="title">
+            Jr. Systems Developer
+          </h3>
+          <p className="placement">
+            The Co-operators
+          </p>
+          <select onChange={this.changeSort}>
+            <option value="ASC">
+              Oldest to Newest
+            </option>
+            <option value="DESC">
+              Newest to Oldest
+            </option>
+          </select>
+          { this.state.posts.length > 0 &&
+                this.state.posts.map((item, i) => 
+                  <div className="postDiv" key={i}>
+                    <h3 className="postTitle" >{item.post_title}</h3>
+                    <p>Added: {item.posted_date}</p>
+                    <p className="postDiv">{item.post_description}</p>
+                  </div>
+                )
+            }
+        </MediaQuery> 
     </div>
     );
   }
