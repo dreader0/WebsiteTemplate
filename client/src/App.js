@@ -327,13 +327,13 @@ class App extends React.Component {
                 <CheeseburgerMenu
                   isOpen={this.state.menuOpen}
                   closeCallback={this.closeMenu.bind(this)}>
-                        <Link style={{textDecoration: "none"}} to="/">
+                        <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/">
                           <p style={{mobileOptions}}>Home</p>
                         </Link>
-                        <Link style={{textDecoration: "none"}} to="/WorkTermOne">
+                        <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/WorkTermOne">
                           <p style={{mobileOptions}}>The Co-operators</p>
                         </Link>
-                        <Link style={{textDecoration: "none"}} to="/AboutMe">
+                        <Link  onClick={this.closeMenu.bind(this)}style={{textDecoration: "none"}} to="/AboutMe">
                           <p style={{mobileOptions}}>About Me</p>
                         </Link>
                 </CheeseburgerMenu>
