@@ -256,7 +256,7 @@ class App extends React.Component {
 
         <div style={{backgroundColor: "white"}}>
             <button onClick={this.addPosts} className="AddPost" id="AddPost">+</button> <br></br>
-            <h1 style={{textAlign: "center", margin: "30px", paddingLeft: "150px"}}>Mackenzie Quigley</h1> <br></br>
+            <h1 style={{textAlign: "center", margin: "30px", paddingLeft: "150px"}}>Slina</h1> <br></br>
         </div>
         </MediaQuery>
 
@@ -352,7 +352,7 @@ class App extends React.Component {
             </div>
 
           <div style={{backgroundColor: "white", padding: "2px", paddingBottom: "0px", marginTop: "2px"}}>
-              <h1 style={{textAlign: "center", fontSize: "30px", padding: "3px"}}>Mackenzie Quigley</h1> <br></br>
+              <h1 style={{textAlign: "center", fontSize: "30px", padding: "3px"}}>Slina</h1> <br></br>
           </div>
         </MediaQuery>
 

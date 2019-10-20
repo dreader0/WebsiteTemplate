@@ -25,9 +25,9 @@ let username = "macsquiggles";
 let password = "Password@1";
 
 let sql_host = "us-cdbr-iron-east-02.cleardb.net";
-let sql_database = "heroku_bff79995f8f7255";
-let sql_password = "7c439eea";
-let sql_user = "b9dd0342fcf1ea";
+let sql_database = "heroku_852fe942c3b73d3";
+let sql_password = "6459330d";
+let sql_user = "ba3c2c9bf3031d";
 
 
 var db_config = {
