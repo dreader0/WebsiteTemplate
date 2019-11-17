@@ -9,7 +9,7 @@ import { createBrowserHistory } from 'history';
 import MediaQuery  from 'react-responsive';
 import CheeseburgerMenu from 'cheeseburger-menu';
 import HamburgerMenu from 'react-hamburger-menu';
-
+import { SocialIcon } from 'react-social-icons';
 let history = null;
 
 let myModalStyle = {
@@ -52,41 +52,26 @@ const mobileOptions = {
 
 
 const tabStyle = {
-  backgroundColor: "white",
-  color: 'black', 
+  backgroundColor: "transparent",
+  color: 'grey', 
   textAlign: 'center',
-  height: '50px !important',
-  width: '300px !important',
-  fontSize: '24px',
-  paddingLeft: "80px",
-  paddingRight: "80px",
-  paddingTop: "20px",
-  paddingBottom: "20px",
-  borderTopRightRadius: "8px",
-  borderTopLeftRadius: "8px",
+  fontSize: '30px',
+  marginLeft: "30px",
+  marginRight: "30px",
   textDecoration: 'none',
-  border: "1px solid lightgrey",
-  borderBottom: "none",
-  margin: "5px",
-  marginTop: "40px"
+  fontWeight: "bold",
+  borderBottom: "3px solid transparent"
 };
 
 const hoverTabStyle = {
-  color: 'white', 
-  backgroundColor: '#7eb2c4',
+  color: '#FFCF56',
   textAlign: 'center',
-  paddingLeft: "80px",
-  paddingRight: "80px",
-  paddingTop: "20px",
-  fontSize: '24px',
-  paddingBottom: "20px",
-  borderTopRightRadius: "8px",
-  borderTopLeftRadius: "8px",
+  fontSize: '30px',
+  marginLeft: "30px",
+  marginRight: "30px",
   textDecoration: 'none',
-  border: "2px solid lightgrey",
-  borderBottom: "4px solid white",
-  margin: "5px",
-  marginTop: "40px"
+  fontWeight: "bold",
+  borderBottom: "3px solid #FFCF56"
 };
 
 
@@ -253,17 +238,17 @@ class App extends React.Component {
                   <button  onClick={this.validateUser} >Save</button>
                   </form>
               </Modal >
-
-        <div style={{backgroundColor: "white"}}>
-            <button onClick={this.addPosts} className="AddPost" id="AddPost">+</button> <br></br>
-            <h1 style={{textAlign: "center", margin: "30px", paddingLeft: "150px"}}>Mackenzie Quigley</h1> <br></br>
-        </div>
         </MediaQuery>
 
         <Router>
           <div>
+            <div style={{display: "block", overflow: "auto"}}>
               <MediaQuery query='(min-width: 1224px)'>
-                <nav className="tabHeader">
+                <div className="myheader" id="borderimg">
+                <img alt="Mackenzie Quigley Logo" src={require("./Components/MyText/logo.png")} style={{float: "left", padding: "10px", marginLeft: "40px", width: "250px", height: "150px", display: "block"}}/>
+               
+                   <nav className="tabHeader">
+                
                   {history.location.pathname === "/" && 
                     <Link 
                     style={hoverTabStyle} 
@@ -320,10 +305,12 @@ class App extends React.Component {
                   </Link>
               } 
               </nav>
+              </div>
           </MediaQuery>
 
           <MediaQuery query='(max-width: 1224px)'>
-            <div style={{margin: "10px"}}>
+          <div  >
+            <div style={{padding: "10px", float: "left"}}>
                 <CheeseburgerMenu
                   isOpen={this.state.menuOpen}
                   closeCallback={this.closeMenu.bind(this)}>
@@ -350,19 +337,27 @@ class App extends React.Component {
                   animationDuration={0.5}
                 />
             </div>
-
-          <div style={{backgroundColor: "white", padding: "2px", paddingBottom: "0px", marginTop: "2px"}}>
-              <h1 style={{textAlign: "center", fontSize: "30px", padding: "3px"}}>Mackenzie Quigley</h1> <br></br>
+            <div style={{float: "Center"}}>
+              <img alt="Mackenzie Quigley Logo" src={require("./Components/MyText/logo.png")} style={{width: "200px", height: "100px"}}/>
           </div>
+           </div>
         </MediaQuery>
+        </div>
 
-            <Switch onChange={this.updateHistory}>
-                <Route exact path="/" onChange={this.updateHistory}><HomeForm className="tabContent"/></Route>
-                <Route exact path="/WorkTermOne" onChange={this.updateHistory}> <WorkTermOneBlogForm className="tabContent"/> </Route>
-                <Route exact path="/AboutMe" onChange={this.updateHistory}><AboutMeForm className="tabContent"/></Route>
-            </Switch>
+        <div>
+              <Switch onChange={this.updateHistory}>
+                  <Route exact path="/" onChange={this.updateHistory}><HomeForm/></Route>
+                  <Route exact path="/WorkTermOne" onChange={this.updateHistory}> <WorkTermOneBlogForm/> </Route>
+                  <Route exact path="/AboutMe" onChange={this.updateHistory}><AboutMeForm/></Route>
+              </Switch>
+          </div>
         </div>
       </Router>
+      <div style={{margin: "50px"}}>
+        <SocialIcon style={{margin: "20px", width: "30px", height: "30px"}} url="https://www.linkedin.com/in/mackenzie-quigley-9680ba14a/" />
+        <br></br><label style={{backgroundColor: "transparent", fontSize: "20px"}}>Website Designed and Created By Mackenzie Quigley</label>
+        <br></br><button style={{float: "right"}} onClick={this.addPosts} className="AddPost" id="AddPost">+</button> <br></br>
+        </div>
       </div>
     );
   }

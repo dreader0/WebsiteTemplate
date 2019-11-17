@@ -15,7 +15,8 @@
     "react-modal": "^3.9.1",
     "react-responsive": "^8.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-social-icons": "^4.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
