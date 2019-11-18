@@ -59,19 +59,17 @@ const tabStyle = {
   marginLeft: "30px",
   marginRight: "30px",
   textDecoration: 'none',
-  fontWeight: "bold",
   borderBottom: "3px solid transparent"
 };
 
 const hoverTabStyle = {
-  color: '#FFCF56',
+  color: '#FFC30B',
   textAlign: 'center',
   fontSize: '30px',
   marginLeft: "30px",
   marginRight: "30px",
   textDecoration: 'none',
-  fontWeight: "bold",
-  borderBottom: "3px solid #FFCF56"
+  borderBottom: "3px solid #FFC30B"
 };
 
 
@@ -88,26 +86,51 @@ class App extends React.Component {
       username: "",
       password: "",
       hoverHome: false,
-      hoverWorkTermOne: false,
       hoverAboutMe: false,
       modalIsOpen: false,
       menuOpen: false,
+      hoverWorkTerm: false,
+      hoverCooperators: false,
+      selectReport: false
     };
 
+    
+    this.changeDropDown = this.changeDropDown.bind(this);
     this.addPosts = this.addPosts.bind(this);
     this.validateUser = this.validateUser.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
     this.hoverHomeOn = this.hoverHomeOn.bind(this);
     this.hoverHomeOff = this.hoverHomeOff.bind(this);
-    this.hoverWorkTermOneOn = this.hoverWorkTermOneOn.bind(this);
-    this.hoverWorkTermOneOff = this.hoverWorkTermOneOff.bind(this);
     this.hoverAboutMeOn = this.hoverAboutMeOn.bind(this);
     this.hoverAboutMeoff = this.hoverAboutMeoff.bind(this);
     this.selectHome = this.selectHome.bind(this);
-    this.selectWorkTermOne = this.selectWorkTermOne.bind(this);
     this.selectAboutMe = this.selectAboutMe.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
+    this.hoverCooperatorsOn = this.hoverCooperatorsOn.bind(this);
+    this.hoverCooperatorsOff = this.hoverCooperatorsOff.bind(this);
+    this.selectCooperators = this.selectCooperators.bind(this);
+  }
+
+  async selectCooperators() {
+    this.setState({ hoverCooperators: true });
+    this.setState({ selectReport: true });
+    this.setState({ hoverAboutMe: false });
+    this.setState({ hoverHome: false });
+    await history.push("/Cooperators");
+  }
+  hoverCooperatorsOn(){
+    this.setState({ hoverCooperators: true });
+  }
+  hoverCooperatorsOff(){ 
+    if(history.location.pathname !== "/Cooperators") {
+      this.setState({ hoverCooperators: false });
+    }
+  }
+
+  changeDropDown(e) {
+    this.setState({ selectedOption:  e.target.value});
   }
 
   openMenu() {
@@ -129,8 +152,9 @@ class App extends React.Component {
 
   async selectHome() {
     this.setState({ hoverAboutMe: false });
-    this.setState({ hoverWorkTermOne: false });
     this.setState({ hoverHome: true });
+    this.setState({ selectReport: false });
+    this.setState({ hoverCooperators: false });
     await history.push("/");
   }
 
@@ -144,27 +168,12 @@ class App extends React.Component {
     }
   }
 
-  async selectWorkTermOne(){
-    this.setState({ hoverAboutMe: false });
-    this.setState({ hoverWorkTermOne: true });
-    this.setState({ hoverHome: false });
-    await history.push("/WorkTermOne");
-  }
-
-  hoverWorkTermOneOn(){
-    this.setState({ hoverWorkTermOne: true });
-  }
-
-  hoverWorkTermOneOff() { 
-    if(history.location.pathname !== "/WorkTermOne") {
-      this.setState({ hoverWorkTermOne: false });    
-    }
-  }
 
   async selectAboutMe(){
     this.setState({ hoverAboutMe: true });
-    this.setState({ hoverWorkTermOne: false });
     this.setState({ hoverHome: false });
+    this.setState({ selectReport: false });
+    this.setState({ hoverCooperators: false });
     await history.push("/AboutMe");
   }
 
@@ -267,24 +276,29 @@ class App extends React.Component {
                     Home
                     </Link>
                   }
-                  {history.location.pathname === "/WorkTermOne" && 
-                      <Link  
-                      style={hoverTabStyle} 
-                      to="/WorkTermOne">
-                        The Co-operators
-                      </Link>
-                  }
+                  
 
-                  {history.location.pathname !== "/WorkTermOne" && 
-                      <Link 
-                      onClick={this.selectWorkTermOne} 
-                      style={this.state.hoverWorkTermOne ? hoverTabStyle : tabStyle} 
-                      onMouseEnter={this.hoverWorkTermOneOn} 
-                      onMouseLeave={this.hoverWorkTermOneOff} 
-                      to="/WorkTermOne">
-                        The Co-operators
-                        </Link>
-                  }
+                  <div className="dropdown">
+                    {(this.state.selectReport === true) &&
+                      <label style={hoverTabStyle} >Work Term Reports</label>
+                    }
+                    {(this.state.selectReport !== true) &&
+                      <label style={this.state.WorkTerm ? hoverTabStyle : tabStyle} >Work Term Reports</label>
+                    }
+
+                  <div className="dropdown-content">
+                      {history.location.pathname === "/Cooperators" &&
+                      <div>
+                        <Link style={hoverTabStyle} onMouseEnter={this.hoverCooperatorsOn}  onMouseLeave={this.hoverCooperatorsOff} onClick={this.selectCooperators}  to="/Cooperators">The Co-operators</Link> <br></br>
+                      </div>
+                      }
+                      {history.location.pathname !== "/Cooperators" &&
+                      <div>
+                        <Link style={this.state.hoverCooperators ? hoverTabStyle : tabStyle} onMouseEnter={this.hoverCooperatorsOn}  onMouseLeave={this.hoverCooperatorsOff} onClick={this.selectCooperators} to="/Cooperators">The Co-operators</Link> <br></br>
+                      </div>
+                      }
+                      </div>
+                  </div>
                   
                 {history.location.pathname === "/AboutMe" && 
                 <Link
@@ -348,6 +362,7 @@ class App extends React.Component {
               <Switch onChange={this.updateHistory}>
                   <Route exact path="/" onChange={this.updateHistory}><HomeForm/></Route>
                   <Route exact path="/WorkTermOne" onChange={this.updateHistory}> <WorkTermOneBlogForm/> </Route>
+                  <Route exact path="/Cooperators" onChange={this.updateHistory}> <WorkTermOneBlogForm/> </Route>
                   <Route exact path="/AboutMe" onChange={this.updateHistory}><AboutMeForm/></Route>
               </Switch>
           </div>
