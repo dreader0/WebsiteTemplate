@@ -3,6 +3,7 @@ import './App.css';
 import Modal from 'react-modal';
 import AboutMeForm from "./Components/AboutMeForm";
 import HomeForm from "./Components/HomeForm";
+import ContactForm from "./Components/Contact";
 import WorkTermOneBlogForm from "./Components/WorkTermOneBlogForm";
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import { createBrowserHistory } from 'history';
@@ -87,9 +88,9 @@ class App extends React.Component {
       password: "",
       hoverHome: false,
       hoverAboutMe: false,
+      hoverContactMe: false,
       modalIsOpen: false,
       menuOpen: false,
-      hoverWorkTerm: false,
       hoverCooperators: false,
       selectReport: false
     };
@@ -99,12 +100,19 @@ class App extends React.Component {
     this.addPosts = this.addPosts.bind(this);
     this.validateUser = this.validateUser.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
+
     this.hoverHomeOn = this.hoverHomeOn.bind(this);
     this.hoverHomeOff = this.hoverHomeOff.bind(this);
+    this.selectHome = this.selectHome.bind(this);
+
     this.hoverAboutMeOn = this.hoverAboutMeOn.bind(this);
     this.hoverAboutMeoff = this.hoverAboutMeoff.bind(this);
-    this.selectHome = this.selectHome.bind(this);
     this.selectAboutMe = this.selectAboutMe.bind(this);
+
+    this.hoverContactMeOn = this.hoverContactMeOn.bind(this);
+    this.hoverContactMeoff = this.hoverContactMeoff.bind(this);
+    this.selectContactMe = this.selectContactMe.bind(this);
+    
     this.updateHistory = this.updateHistory.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
@@ -118,6 +126,7 @@ class App extends React.Component {
     this.setState({ selectReport: true });
     this.setState({ hoverAboutMe: false });
     this.setState({ hoverHome: false });
+    this.setState({ hoverContactMe: false }); 
     await history.push("/Cooperators");
   }
   hoverCooperatorsOn(){
@@ -155,6 +164,7 @@ class App extends React.Component {
     this.setState({ hoverHome: true });
     this.setState({ selectReport: false });
     this.setState({ hoverCooperators: false });
+    this.setState({ hoverContactMe: false }); 
     await history.push("/");
   }
 
@@ -174,6 +184,7 @@ class App extends React.Component {
     this.setState({ hoverHome: false });
     this.setState({ selectReport: false });
     this.setState({ hoverCooperators: false });
+    this.setState({ hoverContactMe: false }); 
     await history.push("/AboutMe");
   }
 
@@ -182,11 +193,29 @@ class App extends React.Component {
   }
 
   hoverAboutMeoff(){ 
-    if(history.location.pathname !== "/AboutMe") {
-      this.setState({ hoverAboutMe: false });    
+    if(history.location.pathname !== "/ContactMe") {
+      this.setState({ hoverContactMe: false });    
     }
   }
 
+  async selectContactMe(){
+    this.setState({ hoverAboutMe: false });
+    this.setState({ hoverHome: false });
+    this.setState({ selectReport: false });
+    this.setState({ hoverCooperators: false });
+    this.setState({ hoverContactMe: true });
+    await history.push("/ContactMe");
+  }
+
+  hoverContactMeOn(){
+    this.setState({ hoverContactMe: true });
+  }
+
+  hoverContactMeoff(){ 
+    if(history.location.pathname !== "/ContactMe") {
+      this.setState({ hoverContactMe: false });    
+    }
+  }
 
   handleStateChange = async(e) => {
     await this.setState({ [e.target.id]: e.target.value });
@@ -230,7 +259,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <MediaQuery query='(min-width: 1224px)'>
+        <MediaQuery query='(min-width: 1225px)'>
           <Modal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
@@ -252,7 +281,7 @@ class App extends React.Component {
         <Router>
           <div>
             <div style={{display: "block", overflow: "auto"}}>
-              <MediaQuery query='(min-width: 1224px)'>
+              <MediaQuery query='(min-width: 1225px)'>
                 <div className="myheader" id="borderimg">
                 <img alt="Mackenzie Quigley Logo" src={require("./Components/MyText/logo.png")} style={{float: "left", padding: "10px", marginLeft: "40px", width: "250px", height: "150px", display: "block"}}/>
                
@@ -318,6 +347,26 @@ class App extends React.Component {
                   About Me
                   </Link>
               } 
+
+
+              {history.location.pathname === "/ContactMe" && 
+                <Link
+                style={ hoverTabStyle} 
+                to="/ContactMe">
+                  Contact Me
+                  </Link>
+              }
+
+                {history.location.pathname !== "/ContactMe" && 
+                <Link
+                onClick={this.selectContactMe} 
+                style={this.state.hoverContactMe ? hoverTabStyle : tabStyle} 
+                onMouseEnter={this.hoverContactMeOn} 
+                onMouseLeave={this.hoverContactMeoff} 
+                to="/ContactMe">
+                  Contact Me
+                  </Link>
+              }
               </nav>
               </div>
           </MediaQuery>
@@ -331,11 +380,14 @@ class App extends React.Component {
                         <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/">
                           <p style={{mobileOptions}}>Home</p>
                         </Link>
-                        <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/WorkTermOne">
+                        <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/Cooperators">
                           <p style={{mobileOptions}}>The Co-operators</p>
                         </Link>
                         <Link  onClick={this.closeMenu.bind(this)}style={{textDecoration: "none"}} to="/AboutMe">
                           <p style={{mobileOptions}}>About Me</p>
+                        </Link>
+                        <Link  onClick={this.closeMenu.bind(this)}style={{textDecoration: "none"}} to="/ContactMe">
+                          <p style={{mobileOptions}}>Contact Me</p>
                         </Link>
                 </CheeseburgerMenu>
           
@@ -361,8 +413,8 @@ class App extends React.Component {
         <div>
               <Switch onChange={this.updateHistory}>
                   <Route exact path="/" onChange={this.updateHistory}><HomeForm/></Route>
-                  <Route exact path="/WorkTermOne" onChange={this.updateHistory}> <WorkTermOneBlogForm/> </Route>
                   <Route exact path="/Cooperators" onChange={this.updateHistory}> <WorkTermOneBlogForm/> </Route>
+                  <Route exact path="/ContactMe" onChange={this.updateHistory}> <ContactForm/> </Route>
                   <Route exact path="/AboutMe" onChange={this.updateHistory}><AboutMeForm/></Route>
               </Switch>
           </div>

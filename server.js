@@ -28,7 +28,8 @@ let sql_host = "us-cdbr-iron-east-02.cleardb.net";
 let sql_database = "heroku_852fe942c3b73d3";
 let sql_password = "6459330d";
 let sql_user = "ba3c2c9bf3031d";
-
+let email_password = "mquigley01";   
+var nodemailer = require('nodemailer');
 
 var db_config = {
   host: sql_host,
@@ -38,6 +39,35 @@ var db_config = {
 };
 
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mquigleyautoreply@gmail.com',
+    pass: email_password
+  }
+});
+
+app.post('/api/v1/SendEmail', function(req, res) {
+
+  var mailOptions = {
+    from: 'mquigleyautoreply@gmail.com',
+    to: 'mackenziequigley@outlook.com',
+    subject: "Contact Form Filled By: " + req.body.firstname + " " + req.body.lastname,
+    text: "Hi Mackenzie!\n" + req.body.firstname + " " + req.body.lastname + " (" + req.body.email + 
+    ") sent you the following message:\n\n" + req.body.message
+  };
+
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+      res.send("{\"Error\":\"" + error + "\"}");
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.send("{\"Error\":\"None\"}");
+    }
+  });
+});
+
 const pool = mysql.createPool({
   host: sql_host,
   user: sql_user,
@@ -45,30 +75,6 @@ const pool = mysql.createPool({
   password: sql_password
 });
 
-//var con;
-
-/*
-function handleDisconnect() {
-  con = mysql.createConnection(db_config);
-  
-  con.connect(function(err) {             
-    if(err) {                                    
-      console.log('error when connecting to db:', err);
-      setTimeout(handleDisconnect, 2000); 
-    }                                    
-  }); 
-  con.on('error', function(err) {
-    console.log('db error', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-      handleDisconnect(); 
-    } else { 
-      throw err;
-    }
-  });
-}
-
-handleDisconnect();
-*/
 
 //Create the file table if it doesn't already exist
 app.get('/api/v1/createPostTable', function(req, res) {

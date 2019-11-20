@@ -32,7 +32,7 @@ class HomeForm extends React.Component {
         </div>
         </MediaQuery>
 
-        <MediaQuery query='(min-width: 1224px)'>
+        <MediaQuery query='(min-width: 1225px)'>
         <div className="tabContent">
             <h3 className="title" >Welcome To My Website</h3>
             <p style={{paddingLeft: "30px", paddingRight: "30px"}}>

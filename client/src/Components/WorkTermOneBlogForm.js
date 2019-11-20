@@ -62,7 +62,7 @@ class WorkTermOneBlogForm extends React.Component {
             }
         </MediaQuery>
 
-        <MediaQuery query='(min-width: 1224px)'>
+        <MediaQuery query='(min-width: 1225px)'>
           <h3 className="title">
             Jr. Systems Developer
           </h3>

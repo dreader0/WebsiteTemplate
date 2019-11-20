@@ -9,7 +9,7 @@ class AboutMeForm extends React.Component {
         <div className="tabContent">
           <h3 className="title" >About Me</h3>
 
-          <MediaQuery query='(min-width: 1224px)'>           
+          <MediaQuery query='(min-width: 1451px)'>           
               <Grid marginLeft={20} marginRight={20} marginTop={0}>
                   <Grid size={5} >
                   <img  alt="Mackenzie Quigley" src={require("./MyText/mePicture.jpg")} style={{width: "280px", height: "400px"}}/>
@@ -20,7 +20,7 @@ class AboutMeForm extends React.Component {
               </Grid>
             </MediaQuery>
 
-            <MediaQuery query='(max-width: 1224px)'>
+            <MediaQuery query='(max-width: 1450px)'>
                   <p>{myDescription.Text}</p>
                   <img  alt="Mackenzie Quigley" src={require("./MyText/mePicture.jpg")} style={{width: "180px", height: "250px"}}/>
             </MediaQuery>
