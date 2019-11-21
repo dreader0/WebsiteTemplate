@@ -1,2 +1,2 @@
 # MyWebsite
-My co-op work term website
+My website

@@ -1,44 +1,14 @@
 import React from 'react';
 import './App.css';
-import Modal from 'react-modal';
 import AboutMeForm from "./Components/AboutMeForm";
 import HomeForm from "./Components/HomeForm";
-import ContactForm from "./Components/Contact";
 import WorkTermOneBlogForm from "./Components/WorkTermOneBlogForm";
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import { createBrowserHistory } from 'history';
 import MediaQuery  from 'react-responsive';
 import CheeseburgerMenu from 'cheeseburger-menu';
 import HamburgerMenu from 'react-hamburger-menu';
-import { SocialIcon } from 'react-social-icons';
 let history = null;
-
-let myModalStyle = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.75)'
-  },
-  content: {
-    border: '1px solid #ccc',
-    background: '#fff',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    borderRadius: '4px',
-    outline: 'none',
-    padding: '20px',
-    height: '400px',
-    width: '900px',
-    position: 'fixed',
-    alignItems: 'center',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
 
 const mobileOptions = {
   backgroundColor: "white",
@@ -64,13 +34,13 @@ const tabStyle = {
 };
 
 const hoverTabStyle = {
-  color: '#FFC30B',
+  color: 'grey',
   textAlign: 'center',
   fontSize: '30px',
   marginLeft: "30px",
   marginRight: "30px",
   textDecoration: 'none',
-  borderBottom: "3px solid #FFC30B"
+  borderBottom: "3px solid grey"
 };
 
 
@@ -88,17 +58,14 @@ class App extends React.Component {
       password: "",
       hoverHome: false,
       hoverAboutMe: false,
-      hoverContactMe: false,
       modalIsOpen: false,
       menuOpen: false,
-      hoverCooperators: false,
+      hoverWorkTermOne: false,
       selectReport: false
     };
 
     
     this.changeDropDown = this.changeDropDown.bind(this);
-    this.addPosts = this.addPosts.bind(this);
-    this.validateUser = this.validateUser.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
 
     this.hoverHomeOn = this.hoverHomeOn.bind(this);
@@ -108,33 +75,28 @@ class App extends React.Component {
     this.hoverAboutMeOn = this.hoverAboutMeOn.bind(this);
     this.hoverAboutMeoff = this.hoverAboutMeoff.bind(this);
     this.selectAboutMe = this.selectAboutMe.bind(this);
-
-    this.hoverContactMeOn = this.hoverContactMeOn.bind(this);
-    this.hoverContactMeoff = this.hoverContactMeoff.bind(this);
-    this.selectContactMe = this.selectContactMe.bind(this);
     
     this.updateHistory = this.updateHistory.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.hoverCooperatorsOn = this.hoverCooperatorsOn.bind(this);
-    this.hoverCooperatorsOff = this.hoverCooperatorsOff.bind(this);
-    this.selectCooperators = this.selectCooperators.bind(this);
+    this.hoverWorkTermOneOn = this.hoverWorkTermOneOn.bind(this);
+    this.hoverWorkTermOneOff = this.hoverWorkTermOneOff.bind(this);
+    this.selectWorkTermOne = this.selectWorkTermOne.bind(this);
   }
 
-  async selectCooperators() {
-    this.setState({ hoverCooperators: true });
+  async selectWorkTermOne() {
+    this.setState({ hoverWorkTermOne: true });
     this.setState({ selectReport: true });
     this.setState({ hoverAboutMe: false });
     this.setState({ hoverHome: false });
-    this.setState({ hoverContactMe: false }); 
-    await history.push("/Cooperators");
+    await history.push("/WorkTermOne");
   }
-  hoverCooperatorsOn(){
-    this.setState({ hoverCooperators: true });
+  hoverWorkTermOneOn(){
+    this.setState({ hoverWorkTermOne: true });
   }
-  hoverCooperatorsOff(){ 
-    if(history.location.pathname !== "/Cooperators") {
-      this.setState({ hoverCooperators: false });
+  hoverWorkTermOneOff(){ 
+    if(history.location.pathname !== "/WorkTermOne") {
+      this.setState({ hoverWorkTermOne: false });
     }
   }
 
@@ -163,8 +125,7 @@ class App extends React.Component {
     this.setState({ hoverAboutMe: false });
     this.setState({ hoverHome: true });
     this.setState({ selectReport: false });
-    this.setState({ hoverCooperators: false });
-    this.setState({ hoverContactMe: false }); 
+    this.setState({ hoverWorkTermOne: false });
     await history.push("/");
   }
 
@@ -183,8 +144,7 @@ class App extends React.Component {
     this.setState({ hoverAboutMe: true });
     this.setState({ hoverHome: false });
     this.setState({ selectReport: false });
-    this.setState({ hoverCooperators: false });
-    this.setState({ hoverContactMe: false }); 
+    this.setState({ hoverWorkTermOne: false });
     await history.push("/AboutMe");
   }
 
@@ -193,27 +153,8 @@ class App extends React.Component {
   }
 
   hoverAboutMeoff(){ 
-    if(history.location.pathname !== "/ContactMe") {
-      this.setState({ hoverContactMe: false });    
-    }
-  }
-
-  async selectContactMe(){
-    this.setState({ hoverAboutMe: false });
-    this.setState({ hoverHome: false });
-    this.setState({ selectReport: false });
-    this.setState({ hoverCooperators: false });
-    this.setState({ hoverContactMe: true });
-    await history.push("/ContactMe");
-  }
-
-  hoverContactMeOn(){
-    this.setState({ hoverContactMe: true });
-  }
-
-  hoverContactMeoff(){ 
-    if(history.location.pathname !== "/ContactMe") {
-      this.setState({ hoverContactMe: false });    
+    if(history.location.pathname !== "/AboutMe") {
+      this.setState({  hoverAboutMe: false });    
     }
   }
 
@@ -221,69 +162,15 @@ class App extends React.Component {
     await this.setState({ [e.target.id]: e.target.value });
   }
 
-  validateUser = async(e) => {
-    if(this.state.username !== "" && this.state.password !== "") {
-      if(this.state.title !== "" && this.state.date !== "" && this.state.description !== "") {
-        let response = await checkUser(this.state.username, this.state.password);
-
-        if(response.error === "Verified") {
-          console.log("Verified");
-          let sendPost = await addPost(this.state.title, this.state.date, this.state.description);
-          console.log(sendPost.error);
-    
-          if(sendPost.error === "Success") {
-            this.setState({ modalIsOpen: false });
-            this.seePosts();
-          }
-          else {
-            alert('Invalid Login. Please try again.');
-          }
-        }
-        else {
-          alert('Invalid Login. Please try again.');
-        }
-      }
-      else {
-        alert("Please enter in a title, date and decription for your post.");
-      }
-    }
-    else {
-      alert("Please enter your username and password");
-    }
-  }
-
-  addPosts = (e) => {
-    this.setState({modalIsOpen: true});
-  }
-
   render() {
     return (
       <div>
-        <MediaQuery query='(min-width: 1225px)'>
-          <Modal
-                isOpen={this.state.modalIsOpen}
-                onRequestClose={this.closeModal}
-                style={myModalStyle}
-                contentLabel="New Post"
-              >
-                <form>
-                  <label>Name:</label> <input type="text"   onChange={this.handleStateChange} id={"username"} value={this.state.username}/> <br></br>
-                  <label>Password:</label> <input type="text" onChange={this.handleStateChange} id={"password"} value={this.state.password}/> <br></br>
-                  <label>Title:</label> <input type="text" onChange={this.handleStateChange} id={"title"}value={this.state.title}/> <br></br>
-                  <label>Date:</label> <input type="date" onChange={this.handleStateChange} id={"date"} value={this.state.date}/> <br></br>
-                  <br></br><label>Description:</label><br></br> <textarea rows = "5" cols = "60" className="descriptionBox" type="text" onChange={this.handleStateChange} id={"description"} value={this.state.description}/> <br></br>
-                  <button className="cancelButton" onClick={this.closeModal}>Cancel</button> 
-                  <button  onClick={this.validateUser} >Save</button>
-                  </form>
-              </Modal >
-        </MediaQuery>
-
         <Router>
           <div>
             <div style={{display: "block", overflow: "auto"}}>
               <MediaQuery query='(min-width: 1225px)'>
-                <div className="myheader" id="borderimg">
-                <img alt="Mackenzie Quigley Logo" src={require("./Components/MyText/logo.png")} style={{float: "left", padding: "10px", marginLeft: "40px", width: "250px", height: "150px", display: "block"}}/>
+                <div className="myheader">
+                <label style={{border: "2px solid grey", float: "left", padding: "10px", marginLeft: "40px", width: "250px", height: "150px", display: "block"}}>Logo</label>
                
                    <nav className="tabHeader">
                 
@@ -316,14 +203,14 @@ class App extends React.Component {
                     }
 
                   <div className="dropdown-content">
-                      {history.location.pathname === "/Cooperators" &&
+                      {history.location.pathname === "/WorkTermOne" &&
                       <div>
-                        <Link style={hoverTabStyle} onMouseEnter={this.hoverCooperatorsOn}  onMouseLeave={this.hoverCooperatorsOff} onClick={this.selectCooperators}  to="/Cooperators">The Co-operators</Link> <br></br>
+                        <Link style={hoverTabStyle} onMouseEnter={this.hoverWorkTermOneOn}  onMouseLeave={this.hoverWorkTermOneOff} onClick={this.selectWorkTermOne}  to="/WorkTermOne">Work Term One</Link> <br></br>
                       </div>
                       }
-                      {history.location.pathname !== "/Cooperators" &&
+                      {history.location.pathname !== "/WorkTermOne" &&
                       <div>
-                        <Link style={this.state.hoverCooperators ? hoverTabStyle : tabStyle} onMouseEnter={this.hoverCooperatorsOn}  onMouseLeave={this.hoverCooperatorsOff} onClick={this.selectCooperators} to="/Cooperators">The Co-operators</Link> <br></br>
+                        <Link style={this.state.hoverWorkTermOne ? hoverTabStyle : tabStyle} onMouseEnter={this.hoverWorkTermOneOn}  onMouseLeave={this.hoverWorkTermOneOff} onClick={this.selectWorkTermOne} to="/WorkTermOne">Work Term One</Link> <br></br>
                       </div>
                       }
                       </div>
@@ -349,24 +236,6 @@ class App extends React.Component {
               } 
 
 
-              {history.location.pathname === "/ContactMe" && 
-                <Link
-                style={ hoverTabStyle} 
-                to="/ContactMe">
-                  Contact Me
-                  </Link>
-              }
-
-                {history.location.pathname !== "/ContactMe" && 
-                <Link
-                onClick={this.selectContactMe} 
-                style={this.state.hoverContactMe ? hoverTabStyle : tabStyle} 
-                onMouseEnter={this.hoverContactMeOn} 
-                onMouseLeave={this.hoverContactMeoff} 
-                to="/ContactMe">
-                  Contact Me
-                  </Link>
-              }
               </nav>
               </div>
           </MediaQuery>
@@ -380,14 +249,11 @@ class App extends React.Component {
                         <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/">
                           <p style={{mobileOptions}}>Home</p>
                         </Link>
-                        <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/Cooperators">
-                          <p style={{mobileOptions}}>The Co-operators</p>
+                        <Link onClick={this.closeMenu.bind(this)} style={{textDecoration: "none"}} to="/WorkTermOne">
+                          <p style={{mobileOptions}}>Work Term One</p>
                         </Link>
                         <Link  onClick={this.closeMenu.bind(this)}style={{textDecoration: "none"}} to="/AboutMe">
                           <p style={{mobileOptions}}>About Me</p>
-                        </Link>
-                        <Link  onClick={this.closeMenu.bind(this)}style={{textDecoration: "none"}} to="/ContactMe">
-                          <p style={{mobileOptions}}>Contact Me</p>
                         </Link>
                 </CheeseburgerMenu>
           
@@ -404,7 +270,7 @@ class App extends React.Component {
                 />
             </div>
             <div style={{float: "Center"}}>
-              <img alt="Mackenzie Quigley Logo" src={require("./Components/MyText/logo.png")} style={{width: "200px", height: "100px"}}/>
+              <label style={{border: "2px solid grey", width: "200px", height: "100px"}}>Logo</label>
           </div>
            </div>
         </MediaQuery>
@@ -413,71 +279,18 @@ class App extends React.Component {
         <div>
               <Switch onChange={this.updateHistory}>
                   <Route exact path="/" onChange={this.updateHistory}><HomeForm/></Route>
-                  <Route exact path="/Cooperators" onChange={this.updateHistory}> <WorkTermOneBlogForm/> </Route>
-                  <Route exact path="/ContactMe" onChange={this.updateHistory}> <ContactForm/> </Route>
+                  <Route exact path="/WorkTermOne" onChange={this.updateHistory}> <WorkTermOneBlogForm/> </Route>
                   <Route exact path="/AboutMe" onChange={this.updateHistory}><AboutMeForm/></Route>
               </Switch>
           </div>
         </div>
       </Router>
       <div style={{margin: "50px"}}>
-        <SocialIcon style={{margin: "20px", width: "30px", height: "30px"}} url="https://www.linkedin.com/in/mackenzie-quigley-9680ba14a/" />
         <br></br><label style={{backgroundColor: "transparent", fontSize: "20px"}}>Website Designed and Created By Mackenzie Quigley</label>
-        <br></br><button style={{float: "right"}} onClick={this.addPosts} className="AddPost" id="AddPost">+</button> <br></br>
         </div>
       </div>
     );
   }
 }
-
-async function checkUser(username, password) {
-  let info = {};
-  info.username = username;
-  info.password = password;
-  console.log(info);
-
-  let data = {};
-
-  await (async () => {
-    const rawResponse = await fetch('/api/v1/checkUser', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(info)
-    });
-    data = await rawResponse.json();
-  })();
-
-    return data;
-}
-
-
-async function addPost(title, date, description) {
-  let info = {};
-  info.title = title;
-  info.description = description;
-  info.date = date;
-
-  console.log(info);
-
-  let data = {};
-
-  await (async () => {
-    const rawResponse = await fetch('/api/v1/addPost', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(info)
-    });
-    data = await rawResponse.json();
-  })();
-
-    return data;
-}
-
 
 export default App;

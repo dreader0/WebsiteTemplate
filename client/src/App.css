@@ -9,14 +9,14 @@
 }
 
 html {
-  background-color: #b0e0e6;
+  background-color: lightseagreen;
   text-align: center;
-  font-family:'Yu Gothic', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+  font-family: Arial,Helvetica Neue,Helvetica,sans-serif; 
 }
 
 .title {
   font-size: 34px;
-  color: #FFC30B;
+  color: grey;
   padding: 30px;
   margin: auto;
   text-align: center;
@@ -24,7 +24,7 @@ html {
 
 .mobileTitle {
   font-size: 24px;
-  color: #FFC30B;
+  color: grey;
   padding: 5px;
   margin: 0px;
   text-align: center;
@@ -38,7 +38,7 @@ p {
 
 .placement {
   font-size: 24px;
-  color: #b0e0e6;
+  color: lightseagreen;
   font-weight: bold;
   padding: 10px;
   padding-bottom: 20px;
@@ -48,7 +48,7 @@ p {
 
 .mobilePlacement {
   font-size: 22px;
-  color: #b0e0e6;
+  color: lightseagreen;
   font-weight: bold;
   padding: 5px;
   margin: 0px;
@@ -58,15 +58,17 @@ p {
 .myheader {
   display: block;
   overflow: auto;
-  background-color: transparent;
+  background-color: white;
   padding: 10px;
-  margin-bottom: 100px;
-  float: right;
+  float: center;
   width: 90%;
   margin: 20px;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 .tabHeader {
+  background-color: white;
   text-align: center;
   margin-top: 25px;
   padding: 20px;
@@ -92,9 +94,9 @@ p {
 button {
   font-size: 24px;
   background-color: transparent;
-  color: #b0e0e6;
+  color: lightseagreen;
   padding: 2px;
-  border: 2px solid #b0e0e6;
+  border: 2px solid lightseagreen;
   min-height: 30px;
   min-width: 100px;
   margin: 10px;
@@ -113,7 +115,7 @@ textarea {
   width: 70%;
   height: 120px;
   padding: 12px;
-  border: 1px solid #b0e0e6;
+  border: 1px solid lightseagreen;
   border-radius: 4px;
   box-sizing: border-box;
   margin-top: 6px;
@@ -138,7 +140,7 @@ textarea {
 select {
   font-size: 24px;
   background-color: white;
-  border: 1px solid  #b0e0e6;
+  border: 1px solid  lightseagreen;
   color: black;
   margin: 10px;
   min-height: 30px;
@@ -149,7 +151,7 @@ select {
 
 button:hover {
   color: white;
-  background-color: #b0e0e6;
+  background-color: lightseagreen;
 }
 
 label {
@@ -164,7 +166,7 @@ label {
 input {
   font-size: 24px;
   background-color: white;
-  border: 1px solid  #b0e0e6;
+  border: 1px solid  lightseagreen;
   color: black;
   margin: 10px;
   min-height: 30px;
@@ -175,7 +177,7 @@ input {
 .mobileSelection {
   font-size: 18px;
   background-color: white;
-  border: 1px solid  #b0e0e6;
+  border: 1px solid  lightseagreen;
   color: black;
   margin: 5px;
   min-height: 25px;
@@ -186,7 +188,7 @@ input {
 .descriptionBox {
   font-size: 20px;
   background-color: white;
-  border: 1px solid  #b0e0e6;
+  border: 1px solid  lightseagreen;
   color: black;
   margin: 10px;
   border-radius: 5px;
@@ -226,20 +228,10 @@ input {
   padding: 20px;
   padding: 100px;
   margin-bottom: 50px;
-  background-image: url("Components/MyText/content.png");
-  background-repeat:no-repeat;
+  background-color: white;
   display: block;
   background-size: cover;
   margin: auto;
-}
-
-#borderimg { 
- background-image: url("Components/MyText/border.png");
- background-size: 100% 100%;
- height: 250px;
- width: 100%;
- background-repeat:no-repeat;
- display: block;
 }
 
 

@@ -12,7 +12,7 @@ class AboutMeForm extends React.Component {
           <MediaQuery query='(min-width: 1451px)'>           
               <Grid marginLeft={20} marginRight={20} marginTop={0}>
                   <Grid size={5} >
-                  <img  alt="Mackenzie Quigley" src={require("./MyText/mePicture.jpg")} style={{width: "280px", height: "400px"}}/>
+                  <label style={{border: "2px solid grey", width: "280px", height: "400px"}}>Pic of me</label>
                   </Grid>
                   <Grid size={6}>
                     <p>{myDescription.Text}</p>
@@ -22,7 +22,7 @@ class AboutMeForm extends React.Component {
 
             <MediaQuery query='(max-width: 1450px)'>
                   <p>{myDescription.Text}</p>
-                  <img  alt="Mackenzie Quigley" src={require("./MyText/mePicture.jpg")} style={{width: "180px", height: "250px"}}/>
+                  <label style={{border: "2px solid grey", width: "180px", height: "250px"}}>Pic of me </label>
             </MediaQuery>
         </div>
     );
